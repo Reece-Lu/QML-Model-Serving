@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from PIL import Image
 import io
@@ -8,6 +9,14 @@ from cnn_training import CNet
 from qnn_training import HNet, create_qnn
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Set the conversion of images for upload
 transform = transforms.Compose([

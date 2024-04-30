@@ -8,7 +8,13 @@ from torchvision import transforms
 from cnn_training import CNet
 from qnn_training import HNet, create_qnn
 
-app = FastAPI()
+app = FastAPI(
+    title="Your API Title",
+    description="Your API Description",
+    version="0.1.0",
+    servers=[{"url": "https://www.meetyuwen.com/api", "description": "Production server"}],
+)
+
 
 app.add_middleware(
     CORSMiddleware,

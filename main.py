@@ -7,6 +7,7 @@ import torch
 from torchvision import transforms
 from cnn_training import CNet
 from qnn_training import HNet, create_qnn
+from random_user import generate_random_user, RandomUser
 
 app = FastAPI(
     title="Your API Title",
@@ -70,6 +71,11 @@ async def predict_qnn(file: UploadFile = File(...)):
     predicted_class = torch.argmax(prediction, dim=1).item()
     return JSONResponse(content={"prediction": predicted_class})
 
+# 添加随机用户生成的路由
+@app.get("/generate_user", response_model=RandomUser)
+async def generate_user():
+    user = generate_random_user()
+    return user
 
 @app.get("/")
 def read_root():

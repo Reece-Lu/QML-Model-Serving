@@ -16,15 +16,11 @@ class RandomUser(BaseModel):
     title: str
 
 # 随机生成邮箱
-def generate_random_email(domains=None):
-    if domains is None:
-        domains = ['163.com', '126.com', 'foxmail.com']
-    domain = random.choice(domains)  # 随机选择一个邮箱后缀
+def generate_random_email(first_name_pinyin):
+    domain = '126.com'  # 仅使用 126.com 作为邮箱后缀
+    random_number = random.randint(1000, 9999)  # 生成四位随机数字
 
-    username = fake.user_name()  # 生成一个随机用户名
-    random_number = random.randint(1000, 9999)  # 生成一个四位数的随机数字
-
-    return f"{username}{random_number}@{domain}"
+    return f"{first_name_pinyin}{random_number}@{domain}"
 
 # 随机生成中文姓和拼音
 def generate_chinese_surname_pinyin():
@@ -46,7 +42,7 @@ def generate_title():
 def generate_random_user() -> RandomUser:
     first_name, first_name_pinyin = generate_chinese_given_name_pinyin()
     last_name, last_name_pinyin = generate_chinese_surname_pinyin()
-    email = generate_random_email()
+    email = generate_random_email(first_name_pinyin)
     title = generate_title()
 
     return RandomUser(
